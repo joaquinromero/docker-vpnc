@@ -48,6 +48,7 @@ $ docker run --rm --name imatia_vpn --privileged --env-file .env --net=host -d a
 - `--env-file`: Loads up the contents of `.env` into the container's environment
 - `--net=host`: see http://www.dasblinkenlichten.com/docker-networking-101-host-mode/
 
+**Add route to windows host**
 ```cmd
 > route -p add <vpns_ips> MASK 255.255.255.0 <docker_container_ip (should be like 10.0.75.X)>
 ```
