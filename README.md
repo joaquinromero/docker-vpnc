@@ -39,6 +39,7 @@ Lastly, run the container.
 
 ```bash
 $ docker run --rm --name imatia_vpn --privileged --env-file .env --net=host -d azavea/vpnc 
+```
 
 **Option Explanations**
 
@@ -49,7 +50,7 @@ $ docker run --rm --name imatia_vpn --privileged --env-file .env --net=host -d a
 
 ```cmd
 > route -p add <vpns_ips> MASK 255.255.255.0 <docker_container_ip (should be like 10.0.75.X)>
-
+```
 
 
 **Note**: If you get an error like the one below, it is a [known bug](https://bugs.launchpad.net/ubuntu/+source/vpnc/+bug/228365) with `vpnc`:
