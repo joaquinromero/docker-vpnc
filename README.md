@@ -35,27 +35,22 @@ Next, build the container:
 $ docker build -t azavea/vpnc .
 ```
 
-Lastly, run the container, and then ask [ipify](https://www.ipify.org/) what your external IP address is. It should return the IP address of your VPN endpoint.
+Lastly, run the container.
 
 ```bash
-$ docker run --rm -ti --privileged --env-file .env --dns 8.8.8.8 \
-    azavea/vpnc /sbin/my_init --quiet -- \
-    /bin/sh -c "sleep 5 && curl 'https://api.ipify.org?format=json'"
-VPNC started in foreground...
-{"ip":"216.158.51.82"}
-$ curl 'https://api.ipify.org?format=json'
-{"ip":"52.2.53.130"}
-```
+$ docker run --rm --name imatia_vpn --privileged --env-file .env --net=host -d azavea/vpnc 
 
 **Option Explanations**
 
 - `--rm`: Removes the container after it's done executing
 - `--privileged`: Allows the container to create and make use of the `tun` device
 - `--env-file`: Loads up the contents of `.env` into the container's environment
-- `--dns`: Make use of Google's DNS servers for name resolution within the container
-- `/sbin/my_init`: The init system provided by `phusion/baseimage-docker`
+- `--net=host`: see http://www.dasblinkenlichten.com/docker-networking-101-host-mode/
 
-Everything after `--` is the command we want to run within the container, in addition to the services managed by `my_init.`
+```cmd
+> route -p add <vpns_ips> MASK 255.255.255.0 <docker_container_ip (should be like 10.0.75.X)>
+
+
 
 **Note**: If you get an error like the one below, it is a [known bug](https://bugs.launchpad.net/ubuntu/+source/vpnc/+bug/228365) with `vpnc`:
 
