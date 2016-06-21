@@ -38,7 +38,7 @@ $ docker build -t azavea/vpnc .
 Lastly, run the container.
 
 ```bash
-$ docker run --rm --name imatia_vpn --privileged --env-file .env --net=host -d azavea/vpnc 
+$ docker run --rm --name docker_vpn --privileged --env-file .env --net=host -d azavea/vpnc 
 ```
 
 **Option Explanations**
